@@ -6,5 +6,7 @@
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
     <string name="login_register">Register</string>
-    <string name="login_sign_in">Sign In</string>
+    <string name="login_log_in">Log In</string>
+
+    <string name="menu_log_off">Log Off</string>
 </resources>
