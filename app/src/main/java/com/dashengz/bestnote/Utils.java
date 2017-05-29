@@ -5,8 +5,6 @@ import android.graphics.Point;
 import android.view.Display;
 
 /**
- * Created by Jonathan on 5/20/17.
- * <p>
  * Utility class for BestNote
  */
 

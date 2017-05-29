@@ -9,6 +9,17 @@
     tools:context="com.dashengz.bestnote.MainActivity">
 
 
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/welcome"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <TextView
         android:id="@+id/welcome"
         android:layout_width="wrap_content"
@@ -24,15 +35,16 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/profile"
+    <Button
+        android:id="@+id/see_notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/welcome"
+        android:layout_marginTop="8dp"
+        android:text="@string/btn_see_notes"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome" />
 
 </android.support.constraint.ConstraintLayout>

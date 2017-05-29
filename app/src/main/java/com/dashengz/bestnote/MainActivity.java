@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         vProfileImg = (AppCompatImageView) findViewById(R.id.profile);
         vWelcome = (TextView) findViewById(R.id.welcome);
+
+        findViewById(R.id.see_notes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, NotesActivity.class));
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
