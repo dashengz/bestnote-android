@@ -20,10 +20,11 @@ import java.util.ArrayList;
 public class NotesActivity extends AppCompatActivity {
 
     private static final String TAG = "NotesActivity";
-    FirebaseDatabase database;
+    FirebaseDatabase mDatabase;
     DatabaseReference userRef;
 
     ArrayList<Note> notes;
+    ArrayList<String> keys;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -38,8 +39,10 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        database = FirebaseDatabase.getInstance();
+        notes = new ArrayList<>();
+        keys = new ArrayList<>();
 
+        mDatabase = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -47,13 +50,17 @@ public class NotesActivity extends AppCompatActivity {
                 user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    userRef = database.getReference(user.getUid());
+                    userRef = mDatabase.getReference(user.getUid());
                     userRef.child("notes").addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                             Note note = dataSnapshot.getValue(Note.class);
-                            notes.add(note);
-                            mAdapter.notifyDataSetChanged();
+                            String key = dataSnapshot.getKey();
+                            if (!keys.contains(key)) {
+                                keys.add(key);
+                                notes.add(note);
+                                mAdapter.notifyItemInserted(notes.size() - 1);
+                            }
                         }
 
                         @Override
@@ -78,8 +85,6 @@ public class NotesActivity extends AppCompatActivity {
             }
         };
 
-        notes = new ArrayList<>();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.list_view);
 
         mRecyclerView.setHasFixedSize(true);
@@ -87,9 +92,8 @@ public class NotesActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(NotesActivity.this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new NoteAdapter(notes);
+        mAdapter = new NoteAdapter(notes, this);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     @Override
