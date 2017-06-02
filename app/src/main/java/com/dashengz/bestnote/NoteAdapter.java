@@ -53,7 +53,11 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                         DateFormat.SHORT
                 )
         );
-        holder.vBody.setText(mDataset.get(position).getNote());
+        String body = mDataset.get(position).getNote();
+        if (!body.isEmpty()) {
+            holder.vBody.setVisibility(View.VISIBLE);
+            holder.vBody.setText(body);
+        } else holder.vBody.setVisibility(View.GONE);
     }
 
     @Override
